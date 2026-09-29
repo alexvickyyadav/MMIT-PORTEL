@@ -1,0 +1,53 @@
+{% extends "portal/base.html" %}
+{% block title %}Student Sign In | {{ config.college_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-5">
+      <div class="card shadow border-0 rounded-4 overflow-hidden">
+        <div class="p-4 text-white text-center" style="background: linear-gradient(135deg, #0a142f 0%, #1e3a8a 100%);">
+          <div class="badge bg-warning text-dark fw-bold px-3 py-1 mb-2">BTEUP STUDENT ERP</div>
+          <h4 class="fw-bolder mb-1">Student Portal Sign In</h4>
+          <p class="small text-light text-opacity-75 mb-0">Mahamaya Polytechnic of Information Technology</p>
+        </div>
+
+        <div class="card-body p-4">
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-dark">BTEUP Enrollment Number:</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                <input type="text" name="enrollment" class="form-control" placeholder="e.g. E25271835500047" required autofocus style="text-transform: uppercase;">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-bold small text-dark">Password:</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                <input type="password" name="password" class="form-control" placeholder="e.g. student123" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2.5 fw-bold shadow-sm mb-3">
+              Sign In to Dashboard &rarr;
+            </button>
+          </form>
+
+          <div class="p-3 rounded-3 bg-light border small text-muted">
+            <div class="fw-bold text-dark mb-1"><i class="bi bi-shield-check text-success me-1"></i> Demo Student Credentials:</div>
+            <div>Enrollment: <code>E25271835500047</code></div>
+            <div>Password: <code>student123</code></div>
+          </div>
+        </div>
+
+        <div class="card-footer bg-light p-3 text-center small text-muted">
+          First time here? <a href="{% url 'student_register' %}" class="fw-bold text-primary">Activate account with OTP</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

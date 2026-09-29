@@ -1,0 +1,322 @@
+{% extends "portal/base.html" %}
+{% load static %}
+
+{% block title %}Home | {{ config.college_short_name|default:"MMIT Shravasti" }}{% endblock %}
+
+{% block content %}
+<!-- Running News Ticker -->
+<div class="bg-warning text-dark py-2 px-3 border-bottom border-dark border-opacity-10 shadow-sm">
+  <div class="container-fluid d-flex align-items-center gap-2">
+    <span class="badge bg-dark text-warning text-uppercase px-2 py-1 shrink-0" style="font-size: 11px;">
+      <i class="bi bi-megaphone-fill me-1"></i> Announcements
+    </span>
+    <div class="overflow-hidden flex-grow-1" style="white-space: nowrap;">
+      <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();" class="small fw-semibold">
+        {% if marquee_notices %}
+          {% for mn in marquee_notices %}
+            <span class="me-5">
+              {% if mn.is_urgent %}<span class="badge bg-danger text-light me-1">URGENT</span>{% endif %}
+              <a href="{{ mn.link }}" class="text-dark text-decoration-none hover-underline">{{ mn.text }}</a>
+            </span>
+          {% endfor %}
+        {% else %}
+          {% for n in notices %}
+            <span class="me-5">
+              <span class="badge bg-primary text-light me-1">{{ n.category }}</span>
+              <a href="{% url 'notices' %}" class="text-dark text-decoration-none">{{ n.title }} ({{ n.date|date:"M d, Y" }})</a>
+            </span>
+          {% endfor %}
+        {% endif %}
+      </marquee>
+    </div>
+    <a href="{% url 'notices' %}" class="btn btn-outline-dark btn-sm py-0 px-2 small text-nowrap fw-bold" style="font-size: 11px;">View All &rarr;</a>
+  </div>
+</div>
+
+<!-- Interactive Multi-Slide Fast Image Carousel (Mobile, Tablet, Laptop Responsive) -->
+<div id="mmitHeroCarousel" class="carousel slide carousel-fade position-relative" data-bs-ride="carousel" data-bs-interval="2500">
+  <!-- Indicators / Dots -->
+  <div class="carousel-indicators mb-4">
+    <button type="button" data-bs-target="#mmitHeroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Campus Slide"></button>
+    <button type="button" data-bs-target="#mmitHeroCarousel" data-bs-slide-to="1" aria-label="CSE Lab Slide"></button>
+    <button type="button" data-bs-target="#mmitHeroCarousel" data-bs-slide-to="2" aria-label="Electrical Lab Slide"></button>
+    <button type="button" data-bs-target="#mmitHeroCarousel" data-bs-slide-to="3" aria-label="Food Tech Slide"></button>
+  </div>
+
+  <div class="carousel-inner">
+    <!-- Slide 1: Main Campus -->
+    <div class="carousel-item active" data-bs-interval="2500" style="min-height: 480px; max-height: 560px;">
+      <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark">
+        <img src="{% static 'images/college_campus_main_1790575076151.jpg' %}" class="d-block w-100 h-100" style="object-fit: cover; filter: brightness(0.65);" alt="Mahamaya Polytechnic Campus Shravasti" onerror="this.src='/static/images/campus.jpg';">
+      </div>
+      <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(180deg, rgba(9,30,58,0.45) 0%, rgba(15,23,42,0.88) 100%);"></div>
+      <div class="container-fluid px-4 px-md-5 position-relative z-1 d-flex flex-column justify-content-center" style="min-height: 480px; max-height: 560px;">
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <div class="d-inline-flex align-items-center gap-2 mb-2">
+              <span class="badge bg-warning text-dark fw-bold px-3 py-1.5 shadow-sm text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.04em;">
+                <i class="bi bi-patch-check-fill me-1"></i> Established 2016 (2066 Vikram Samvat) · BTEUP Code: {{ config.bteup_code }}
+              </span>
+            </div>
+            <h1 class="display-5 fw-extrabold text-white text-uppercase tracking-tight mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+              Mahamaya Polytechnic Of Information Technology
+            </h1>
+            <p class="lead text-light mb-4" style="max-width: 680px; color: #e2e8f0; font-size: 1.05rem;">
+              Shravasti, Uttar Pradesh · Established 2016 (2066 VS) · Approved by AICTE & Affiliated to BTEUP
+            </p>
+            <div class="d-flex flex-wrap gap-2 gap-sm-3">
+              <a href="{% url 'departments' %}" class="btn btn-warning btn-lg fw-bold px-4 shadow">
+                <i class="bi bi-mortarboard-fill me-2"></i> Explore Academic Programs
+              </a>
+              <a href="{% url 'facilities' %}" class="btn btn-outline-light btn-lg fw-bold px-4" style="backdrop-filter: blur(4px); background: rgba(255,255,255,0.15);">
+                <i class="bi bi-building me-2"></i> Campus Infrastructure
+              </a>
+              <a href="{% url 'about' %}" class="btn btn-outline-warning btn-lg fw-bold px-4">
+                <i class="bi bi-info-circle-fill me-2"></i> About Institute
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: CSE & IT Labs -->
+    <div class="carousel-item" data-bs-interval="2500" style="min-height: 480px; max-height: 560px;">
+      <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark">
+        <img src="{% static 'images/cse_computer_lab_1790575089858.jpg' %}" class="d-block w-100 h-100" style="object-fit: cover; filter: brightness(0.65);" alt="Computer Science Laboratory" onerror="this.src='/static/images/cse.jpg';">
+      </div>
+      <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(180deg, rgba(9,30,58,0.45) 0%, rgba(15,23,42,0.88) 100%);"></div>
+      <div class="container-fluid px-4 px-md-5 position-relative z-1 d-flex flex-column justify-content-center" style="min-height: 480px; max-height: 560px;">
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <span class="badge bg-primary text-light fw-bold px-3 py-1.5 mb-2 shadow-sm text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.04em;">
+              <i class="bi bi-laptop me-1"></i> Computer Science & Engineering
+            </span>
+            <h2 class="display-5 fw-extrabold text-white text-uppercase tracking-tight mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+              Advanced Computer Science & IT Laboratories
+            </h2>
+            <p class="lead text-light mb-4" style="max-width: 680px; color: #e2e8f0; font-size: 1.05rem;">
+              Fostering Programming, Database Systems, Web Engineering & Artificial Intelligence Skills
+            </p>
+            <div class="d-flex flex-wrap gap-2 gap-sm-3">
+              <a href="{% url 'departments' %}" class="btn btn-warning btn-lg fw-bold px-4 shadow">
+                <i class="bi bi-code-slash me-2"></i> View CSE Department
+              </a>
+              <a href="{% url 'facilities' %}" class="btn btn-outline-light btn-lg fw-bold px-4" style="backdrop-filter: blur(4px); background: rgba(255,255,255,0.15);">
+                <i class="bi bi-cpu me-2"></i> Lab Details
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Electrical Engineering Workshop -->
+    <div class="carousel-item" data-bs-interval="2500" style="min-height: 480px; max-height: 560px;">
+      <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark">
+        <img src="{% static 'images/electrical_eng_lab_1790575101736.jpg' %}" class="d-block w-100 h-100" style="object-fit: cover; filter: brightness(0.65);" alt="Electrical Machines Workshop" onerror="this.src='/static/images/electrical.jpg';">
+      </div>
+      <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(180deg, rgba(9,30,58,0.45) 0%, rgba(15,23,42,0.88) 100%);"></div>
+      <div class="container-fluid px-4 px-md-5 position-relative z-1 d-flex flex-column justify-content-center" style="min-height: 480px; max-height: 560px;">
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <span class="badge bg-warning text-dark fw-bold px-3 py-1.5 mb-2 shadow-sm text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.04em;">
+              <i class="bi bi-lightning-charge-fill me-1"></i> Electrical Engineering
+            </span>
+            <h2 class="display-5 fw-extrabold text-white text-uppercase tracking-tight mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+              Electrical Engineering & Power Systems Labs
+            </h2>
+            <p class="lead text-light mb-4" style="max-width: 680px; color: #e2e8f0; font-size: 1.05rem;">
+              Practical industrial training with transformer test rigs, motor panels & electronic instrumentation
+            </p>
+            <div class="d-flex flex-wrap gap-2 gap-sm-3">
+              <a href="{% url 'departments' %}" class="btn btn-warning btn-lg fw-bold px-4 shadow">
+                <i class="bi bi-mortarboard-fill me-2"></i> View EE Department
+              </a>
+              <a href="{% url 'facilities' %}" class="btn btn-outline-light btn-lg fw-bold px-4" style="backdrop-filter: blur(4px); background: rgba(255,255,255,0.15);">
+                <i class="bi bi-gear-wide-connected me-2"></i> Workshop Tour
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Food Technology Lab -->
+    <div class="carousel-item" data-bs-interval="2500" style="min-height: 480px; max-height: 560px;">
+      <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark">
+        <img src="{% static 'images/food_tech_lab_1790575113515.jpg' %}" class="d-block w-100 h-100" style="object-fit: cover; filter: brightness(0.65);" alt="Food Technology Lab" onerror="this.src='/static/images/food_tech.jpg';">
+      </div>
+      <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(180deg, rgba(9,30,58,0.45) 0%, rgba(15,23,42,0.88) 100%);"></div>
+      <div class="container-fluid px-4 px-md-5 position-relative z-1 d-flex flex-column justify-content-center" style="min-height: 480px; max-height: 560px;">
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <span class="badge bg-success text-light fw-bold px-3 py-1.5 mb-2 shadow-sm text-uppercase" style="font-size: 0.8rem; letter-spacing: 0.04em;">
+              <i class="bi bi-flask-fill me-1"></i> Food Technology
+            </span>
+            <h2 class="display-5 fw-extrabold text-white text-uppercase tracking-tight mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+              Food Technology & Quality Analysis Labs
+            </h2>
+            <p class="lead text-light mb-4" style="max-width: 680px; color: #e2e8f0; font-size: 1.05rem;">
+              Pioneering agro-processing, food preservation, chemical testing & quality management technology
+            </p>
+            <div class="d-flex flex-wrap gap-2 gap-sm-3">
+              <a href="{% url 'departments' %}" class="btn btn-warning btn-lg fw-bold px-4 shadow">
+                <i class="bi bi-mortarboard-fill me-2"></i> View FT Department
+              </a>
+              <a href="{% url 'faculty' %}" class="btn btn-outline-light btn-lg fw-bold px-4" style="backdrop-filter: blur(4px); background: rgba(255,255,255,0.15);">
+                <i class="bi bi-people-fill me-2"></i> Meet Faculty
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carousel Slide Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#mmitHeroCarousel" data-bs-slide="prev" aria-label="Previous Slide">
+    <span class="carousel-control-prev-icon p-3 rounded-circle bg-dark bg-opacity-50" aria-hidden="true"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#mmitHeroCarousel" data-bs-slide="next" aria-label="Next Slide">
+    <span class="carousel-control-next-icon p-3 rounded-circle bg-dark bg-opacity-50" aria-hidden="true"></span>
+  </button>
+</div>
+
+<!-- 4 Clean Academic Feature Cards (Overlapping, No Admin Panel) -->
+<div class="container-fluid px-3 px-md-5" style="margin-top: -30px; position: relative; z-index: 10;">
+  <div class="row g-3">
+    <!-- Card 1: Academic Programs -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 border-top border-4 border-primary rounded-3 p-3 bg-white hover-shadow transition">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <div class="p-2 rounded bg-primary bg-opacity-10 text-primary fs-5"><i class="bi bi-mortarboard-fill"></i></div>
+          <div>
+            <h6 class="mb-0 fw-bold text-dark">Academic Programs</h6>
+            <small class="text-muted">3-Year BTEUP Diploma</small>
+          </div>
+        </div>
+        <p class="small text-muted mb-3">Computer Science & Engg, Electrical Engg, and Food Technology diploma courses.</p>
+        <div class="mt-auto">
+          <a href="{% url 'departments' %}" class="btn btn-outline-primary btn-sm w-100 fw-bold">Explore Departments &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Laboratories & Workshop -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 border-top border-4 border-success rounded-3 p-3 bg-white hover-shadow transition">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <div class="p-2 rounded bg-success bg-opacity-10 text-success fs-5"><i class="bi bi-cpu-fill"></i></div>
+          <div>
+            <h6 class="mb-0 fw-bold text-dark">Labs & Facilities</h6>
+            <small class="text-muted">State-of-the-Art Units</small>
+          </div>
+        </div>
+        <p class="small text-muted mb-3">Modern computer centers, high-voltage testing machines, central library & seminar halls.</p>
+        <div class="mt-auto">
+          <a href="{% url 'facilities' %}" class="btn btn-outline-success btn-sm w-100 fw-bold">View Facilities &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Faculty & Mentors -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 border-top border-4 border-warning rounded-3 p-3 bg-white hover-shadow transition">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <div class="p-2 rounded bg-warning bg-opacity-25 text-dark fs-5"><i class="bi bi-people-fill"></i></div>
+          <div>
+            <h6 class="mb-0 fw-bold text-dark">Faculty & Mentors</h6>
+            <small class="text-muted">Qualified Instructors</small>
+          </div>
+        </div>
+        <p class="small text-muted mb-3">Experienced engineering lecturers, workshop superintendents, and dedicated staff.</p>
+        <div class="mt-auto">
+          <a href="{% url 'faculty' %}" class="btn btn-outline-warning btn-sm w-100 fw-bold text-dark">Meet Faculty &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Official Circulars -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="card h-100 shadow-sm border-0 border-top border-4 border-danger rounded-3 p-3 bg-white hover-shadow transition">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <div class="p-2 rounded bg-danger bg-opacity-10 text-danger fs-5"><i class="bi bi-bell-fill"></i></div>
+          <div>
+            <h6 class="mb-0 fw-bold text-dark">Notice Board</h6>
+            <small class="text-muted">Circulars & Timetables</small>
+          </div>
+        </div>
+        <p class="small text-muted mb-3">BTEUP examination timetables, UP scholarship updates, semester schedules, and holidays.</p>
+        <div class="mt-auto">
+          <a href="{% url 'notices' %}" class="btn btn-outline-danger btn-sm w-100 fw-bold">Read Notices &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- College Profile & Principal's Desk Section -->
+<section class="py-5">
+  <div class="container-fluid px-3 px-md-5">
+    <div class="row g-4 align-items-center">
+      <!-- Left Column: About Institute -->
+      <div class="col-12 col-lg-7">
+        <div class="pe-lg-4">
+          <span class="badge bg-primary text-light px-3 py-1 text-uppercase fw-bold mb-2">About The Institution</span>
+          <h2 class="fw-bolder text-dark mb-3">
+            {{ config.college_name }}
+          </h2>
+          <div class="w-25 border-bottom border-warning border-3 mb-3"></div>
+          <p class="text-muted mb-3" style="line-height: 1.7;">
+            {{ config.about_text }}
+          </p>
+
+          <div class="row g-3 mt-2">
+            <div class="col-sm-6">
+              <div class="p-3 rounded-3 bg-light border">
+                <h6 class="fw-bold text-primary mb-1"><i class="bi bi-eye-fill me-1"></i> Our Vision</h6>
+                <p class="small text-muted mb-0">{{ config.vision }}</p>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="p-3 rounded-3 bg-light border">
+                <h6 class="fw-bold text-success mb-1"><i class="bi bi-bullseye me-1"></i> Our Mission</h6>
+                <p class="small text-muted mb-0">{{ config.mission }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Principal's Desk (100% Dynamic & Editable from Admin) -->
+      <div class="col-12 col-lg-5">
+        <div class="card shadow-sm border-0 border-top border-4 border-warning rounded-4 overflow-hidden bg-white">
+          <div class="card-body p-4 text-center">
+            <div class="position-relative d-inline-block mb-3">
+              <img src="{% if config.principal_photo %}{{ config.principal_photo.url }}{% else %}{% static 'images/principal_portrait_1790652864523.jpg' %}{% endif %}" alt="Principal" class="rounded-circle shadow border border-3 border-warning" style="width: 130px; height: 130px; object-fit: cover;" onerror="this.src='/static/images/principal.jpg';">
+              <span class="position-absolute bottom-0 end-0 badge bg-warning text-dark rounded-circle p-2" title="Head of Institution">
+                <i class="bi bi-award-fill"></i>
+              </span>
+            </div>
+            <h5 class="fw-bold text-dark mb-0">{{ config.principal_name }}</h5>
+            <div class="text-warning fw-bold small mt-0.5">{{ config.principal_designation }}</div>
+            <div class="text-muted small mb-3">{{ config.principal_qualification }}</div>
+
+            <div class="p-3 rounded-3 bg-light border text-start small mb-3 fst-italic" style="line-height: 1.6;">
+              "{{ config.principal_message|truncatewords:45 }}"
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center text-start border-top pt-3 small text-muted">
+              <div>
+                <i class="bi bi-telephone text-warning me-1"></i> {{ config.phone }}
+              </div>
+              <a href="{% url 'about' %}" class="fw-bold text-primary text-decoration-none">Read Full Desk &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

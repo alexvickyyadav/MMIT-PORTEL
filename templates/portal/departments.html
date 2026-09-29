@@ -1,0 +1,52 @@
+{% extends "portal/base.html" %}
+{% load static %}
+{% block title %}Academic Departments | {{ config.college_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center max-w-3xl mx-auto mb-5">
+    <span class="badge bg-primary text-light fw-bold px-3 py-1 mb-2">ACADEMIC DISCIPLINES</span>
+    <h2 class="display-6 fw-bolder text-dark">Diploma Engineering Departments</h2>
+    <p class="text-muted">AICTE Approved 3-Year (6-Semester) Technical Diploma Programs affiliated to BTEUP Lucknow</p>
+  </div>
+
+  <div class="row g-4">
+    {% for dept in departments %}
+      <div class="col-12 col-lg-4">
+        <div class="card card-dept h-100 shadow-sm bg-white border rounded-4 overflow-hidden">
+          <div class="position-relative" style="height: 200px; overflow: hidden; background-color: #0a142f;">
+            <img src="{% if dept.image %}{{ dept.image.url }}{% else %}{% static 'images/college_campus_main_1790575076151.jpg' %}{% endif %}" alt="{{ dept.name }}" class="w-100 h-100" style="object-fit: cover;" onerror="this.src='/static/images/campus.jpg';">
+            <span class="position-absolute top-0 end-0 m-2 badge bg-warning text-dark fw-bold px-3 py-1.5 fs-6">
+              {{ dept.intake_seats }} Seats
+            </span>
+            <span class="position-absolute bottom-0 start-0 m-2 badge bg-primary text-light fw-bold">
+              Code: {{ dept.code }}
+            </span>
+          </div>
+
+          <div class="card-body p-4 d-flex flex-column">
+            <h4 class="fw-bold text-dark mb-2">{{ dept.name }}</h4>
+            <p class="text-secondary small mb-3 flex-grow-1" style="line-height: 1.6;">{{ dept.overview }}</p>
+
+            <div class="p-3 bg-light rounded-3 mb-3 small">
+              <div class="fw-bold text-dark mb-1"><i class="bi bi-person-fill text-primary me-1"></i> Head of Department: {{ dept.hod_name }}</div>
+              <div class="text-muted mb-1"><i class="bi bi-telephone-fill text-success me-1"></i> {{ dept.hod_phone }}</div>
+              <div class="text-muted"><i class="bi bi-envelope-fill text-warning me-1"></i> {{ dept.hod_email }}</div>
+            </div>
+
+            <div class="small mb-3">
+              <strong class="text-dark d-block mb-1"><i class="bi bi-flask text-primary me-1"></i> Laboratory Facilities:</strong>
+              <span class="text-secondary">{{ dept.laboratories }}</span>
+            </div>
+
+            <div class="small">
+              <strong class="text-dark d-block mb-1"><i class="bi bi-book text-success me-1"></i> Core Subjects:</strong>
+              <span class="text-secondary">{{ dept.core_subjects }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

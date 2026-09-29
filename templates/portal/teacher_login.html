@@ -1,0 +1,49 @@
+{% extends "portal/base.html" %}
+{% block title %}Faculty Portal Sign In | {{ config.college_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-5">
+      <div class="card shadow border-0 rounded-4 overflow-hidden">
+        <div class="p-4 text-white text-center" style="background: linear-gradient(135deg, #0a142f 0%, #15803d 100%);">
+          <div class="badge bg-warning text-dark fw-bold px-3 py-1 mb-2">FACULTY ATTENDANCE SYSTEM</div>
+          <h4 class="fw-bolder mb-1">Faculty Portal Sign In</h4>
+          <p class="small text-light text-opacity-75 mb-0">Daily Class Attendance & Academic Management</p>
+        </div>
+
+        <div class="card-body p-4">
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="form-label fw-bold small text-dark">Teacher ID:</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                <input type="text" name="teacher_id" class="form-control" placeholder="e.g. TCH-CSE-01" required autofocus style="text-transform: uppercase;">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-bold small text-dark">Password:</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                <input type="password" name="password" class="form-control" placeholder="e.g. teacher123" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 py-2.5 fw-bold shadow-sm mb-3">
+              Sign In to Faculty Portal &rarr;
+            </button>
+          </form>
+
+          <div class="p-3 rounded-3 bg-light border small text-muted">
+            <div class="fw-bold text-dark mb-1"><i class="bi bi-shield-check text-success me-1"></i> Demo Faculty Credentials:</div>
+            <div>Teacher ID: <code>TCH-CSE-01</code></div>
+            <div>Password: <code>teacher123</code></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

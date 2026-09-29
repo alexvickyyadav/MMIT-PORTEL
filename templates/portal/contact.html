@@ -1,0 +1,93 @@
+{% extends "portal/base.html" %}
+{% block title %}Contact Us | {{ config.college_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center max-w-3xl mx-auto mb-5">
+    <span class="badge bg-primary text-light fw-bold px-3 py-1 mb-2">GET IN TOUCH</span>
+    <h2 class="display-6 fw-bolder text-dark">Contact & Helpdesk</h2>
+    <p class="text-muted">Reach out to institute administration or submit your query online</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Contact Information Card -->
+    <div class="col-12 col-lg-5">
+      <div class="card h-100 shadow-sm border-0 rounded-4 p-4 text-white" style="background: linear-gradient(135deg, #0a142f 0%, #1e3a8a 100%);">
+        <h4 class="fw-bold text-warning mb-4">Campus Contact Info</h4>
+
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <div class="p-2 rounded bg-warning text-dark fs-5"><i class="bi bi-geo-alt-fill"></i></div>
+          <div>
+            <h6 class="mb-1 text-white fw-bold">Campus Address:</h6>
+            <p class="small text-light text-opacity-75 mb-0">{{ config.address }}</p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <div class="p-2 rounded bg-success text-light fs-5"><i class="bi bi-telephone-fill"></i></div>
+          <div>
+            <h6 class="mb-1 text-white fw-bold">Official Helpline:</h6>
+            <p class="small text-light text-opacity-75 mb-0">{{ config.phone }}</p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <div class="p-2 rounded bg-info text-dark fs-5"><i class="bi bi-envelope-fill"></i></div>
+          <div>
+            <h6 class="mb-1 text-white fw-bold">Official Email:</h6>
+            <p class="small text-light text-opacity-75 mb-0">{{ config.email }}</p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-start gap-3">
+          <div class="p-2 rounded bg-danger text-light fs-5"><i class="bi bi-shield-x"></i></div>
+          <div>
+            <h6 class="mb-1 text-white fw-bold">Anti-Ragging Toll-Free Helpline:</h6>
+            <p class="small text-warning fw-bold mb-0">{{ config.anti_ragging_helpline }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="col-12 col-lg-7">
+      <div class="card shadow-sm border-0 rounded-4 p-4 bg-white">
+        <h4 class="fw-bold text-dark mb-3">Send Inquiry to Administration</h4>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="row g-3 mb-3">
+            <div class="col-12 col-md-6">
+              <label class="form-label small fw-bold">Full Name:</label>
+              <input type="text" name="name" class="form-control" placeholder="e.g. Rahul Verma" required>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label small fw-bold">Email Address:</label>
+              <input type="email" name="email" class="form-control" placeholder="e.g. rahul@gmail.com" required>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-12 col-md-6">
+              <label class="form-label small fw-bold">Phone Number:</label>
+              <input type="tel" name="phone" class="form-control" placeholder="+91 XXXXX XXXXX">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label small fw-bold">Inquiry Subject:</label>
+              <input type="text" name="subject" class="form-control" placeholder="e.g. Admission / Scholarship Query" required>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label small fw-bold">Message Details:</label>
+            <textarea name="message" class="form-control" rows="4" placeholder="Write your message or inquiry in detail..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 py-2.5 fw-bold shadow-sm">
+            <i class="bi bi-send-fill me-1"></i> Submit Inquiry
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

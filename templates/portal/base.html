@@ -1,0 +1,428 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ config.college_name }}{% endblock %} | BTEUP Code: {{ config.bteup_code }}</title>
+
+  <!-- Bootstrap 5.3 & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --mpit-navy: #0a142f;
+      --mpit-blue: #1e3a8a;
+      --mpit-gold: #f59e0b;
+      --mpit-amber: #d97706;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+    .tricolor-stripe {
+      height: 4px;
+      background: linear-gradient(90deg, #FF9933 0%, #FF9933 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #138808 66.6%, #138808 100%);
+    }
+    .top-govt-bar {
+      background-color: #070e22;
+      font-size: 0.78rem;
+      color: #cbd5e1;
+    }
+    .header-main {
+      background: linear-gradient(135deg, #091e3a 0%, #0f172a 50%, #1e3a8a 100%);
+      border-bottom: 3px solid #f59e0b;
+      color: #ffffff;
+    }
+    .navbar-mpit {
+      background-color: #0a142f;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+    .navbar-mpit .nav-link {
+      color: #f1f5f9 !important;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 0.7rem 0.9rem !important;
+      transition: all 0.2s;
+    }
+    .navbar-mpit .nav-link:hover, .navbar-mpit .nav-link.active {
+      color: #f59e0b !important;
+      background-color: rgba(255,255,255,0.06);
+      border-radius: 6px;
+    }
+    .dropdown-menu-dark-mpit {
+      background-color: #0f1c3f;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .dropdown-menu-dark-mpit .dropdown-item {
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      padding: 0.5rem 1rem;
+    }
+    .dropdown-menu-dark-mpit .dropdown-item:hover {
+      background-color: #1e3a8a;
+      color: #f59e0b;
+    }
+    .btn-gold {
+      background-color: #f59e0b;
+      color: #0a142f;
+      font-weight: 700;
+      border: none;
+    }
+    .btn-gold:hover {
+      background-color: #d97706;
+      color: #ffffff;
+    }
+    .footer-mpit {
+      background-color: #070e22;
+      color: #94a3b8;
+      border-top: 4px solid #f59e0b;
+    }
+    .footer-mpit h5 {
+      color: #f8fafc;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+    }
+    .footer-mpit a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-mpit a:hover {
+      color: #f59e0b;
+    }
+    .user-nav-dp {
+      width: 32px;
+      height: 32px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #f59e0b;
+    }
+  </style>
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- National Tricolor Top Stripe -->
+  <div class="tricolor-stripe"></div>
+
+  <!-- Official Government Identification Bar (Clean, No Admin Links) -->
+  <div class="top-govt-bar py-1.5 px-3">
+    <div class="container-fluid d-flex flex-wrap justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-2 gap-md-3">
+        <span><i class="bi bi-shield-check text-warning me-1"></i> Department of Technical Education, Government of Uttar Pradesh</span>
+        <span class="d-none d-md-inline text-secondary">|</span>
+        <span class="d-none d-md-inline"><i class="bi bi-patch-check text-success me-1"></i> {{ config.aicte_status }}</span>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="bi bi-mortarboard-fill me-1"></i> BTEUP CODE: {{ config.bteup_code }}</span>
+        <a href="tel:{{ config.phone }}" class="text-light text-decoration-none d-none d-sm-inline"><i class="bi bi-telephone-fill text-warning me-1"></i> {{ config.phone }}</a>
+      </div>
+    </div>
+  </div>
+
+    <!-- Clean Academic Header (Deep Blue Gradient matching React Portal) -->
+  <header class="header-main py-3" style="background: linear-gradient(135deg, #091e3a 0%, #0f172a 50%, #1e3a8a 100%); border-bottom: 3px solid #f59e0b; color: #ffffff;">
+    <div class="container-fluid px-3 px-md-4">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-3">
+          <div class="rounded-circle border-2 border-warning p-1 shadow-md bg-white d-flex align-items-center justify-content-center" style="width: 76px; height: 76px; overflow: hidden; flex-shrink: 0;">
+            <img src="{% static 'images/college_emblem_logo_1790575124269.jpg' %}" alt="MMIT Shravasti Seal" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;" onerror="this.src='/static/images/logo.jpg';">
+          </div>
+          <div>
+            <div class="d-flex align-items-center flex-wrap gap-2 mb-1">
+              <span class="badge bg-warning text-dark fw-extrabold px-2.5 py-1 text-uppercase tracking-wider" style="font-size: 0.82rem; letter-spacing: 0.05em;">
+                {{ config.college_short_name|default:"MMIT SHRAVASTI" }}
+              </span>
+              <span class="text-stone-300 small d-none d-sm-inline" style="color: #cbd5e1; font-weight: 500;">· Govt. Polytechnic Institute</span>
+            </div>
+            <h1 class="h4 fw-bold text-white mb-0 text-uppercase tracking-tight" style="font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.01em;">
+              {{ config.college_name }}
+            </h1>
+            <div class="small mt-1" style="color: #cbd5e1; font-size: 0.8rem;">
+              <span>Established: {{ config.established_year }} (V.S. {{ config.vikram_samvat }})</span>
+              <span class="mx-1">·</span>
+              <span>BTEUP Code: <strong class="text-warning">{{ config.bteup_code }}</strong></span>
+              <span class="mx-1 d-none d-md-inline">·</span>
+              <span class="text-success d-none d-md-inline"><i class="bi bi-geo-alt-fill text-danger me-0.5"></i> Sirsiya Road, Bhinga, Shravasti (U.P.)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Quick Portal Status / Action Buttons -->
+        <div class="d-none d-lg-flex align-items-center gap-2">
+          {% if user.is_authenticated %}
+            <div class="d-flex align-items-center gap-2 p-2 rounded-3" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
+              {% if user.student_profile %}
+                {% if user.student_profile.photo %}
+                  <img src="{{ user.student_profile.photo.url }}" class="user-nav-dp" alt="DP">
+                {% else %}
+                  <div class="user-nav-dp d-flex align-items-center justify-content-center bg-primary text-white fw-bold" style="font-size: 13px;">{{ user.student_profile.verified_record.student_name|first }}</div>
+                {% endif %}
+                <div class="text-start">
+                  <div class="small fw-bold text-white">{{ user.student_profile.verified_record.student_name }}</div>
+                  <a href="{% url 'student_dashboard' %}" class="badge bg-primary text-decoration-none">Student Portal</a>
+                </div>
+              {% elif user.teacher_profile %}
+                {% if user.teacher_profile.photo %}
+                  <img src="{{ user.teacher_profile.photo.url }}" class="user-nav-dp" alt="DP">
+                {% else %}
+                  <div class="user-nav-dp d-flex align-items-center justify-content-center bg-success text-white fw-bold" style="font-size: 13px;">{{ user.teacher_profile.full_name|first }}</div>
+                {% endif %}
+                <div class="text-start">
+                  <div class="small fw-bold text-white">Prof. {{ user.teacher_profile.full_name }}</div>
+                  <a href="{% url 'take_attendance' %}" class="badge bg-success text-decoration-none">Faculty Portal</a>
+                </div>
+              {% else %}
+                <div class="text-start">
+                  <div class="small fw-bold text-warning">Admin Active</div>
+                  <a href="/admin/" class="badge bg-warning text-dark text-decoration-none">Admin CMS</a>
+                </div>
+              {% endif %}
+              <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-danger ms-2 py-0 px-2" title="Logout"><i class="bi bi-box-arrow-right"></i></a>
+            </div>
+          {% else %}
+            <div class="d-flex gap-2">
+              <a href="{% url 'student_login' %}" class="btn btn-sm fw-bold px-3 py-1.5 rounded-3 text-white" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);">
+                <i class="bi bi-mortarboard-fill text-warning me-1"></i> Student Portal
+              </a>
+              <a href="{% url 'teacher_login' %}" class="btn btn-sm fw-bold px-3 py-1.5 rounded-3 text-white" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);">
+                <i class="bi bi-person-workspace text-success me-1"></i> Faculty Portal
+              </a>
+              <a href="/admin/" class="btn btn-sm btn-warning text-dark fw-bold px-3 py-1.5 rounded-3 shadow-sm">
+                <i class="bi bi-shield-lock-fill me-1"></i> Admin Panel
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Navigation Bar with 3-line Hamburger Menu -->
+  <nav class="navbar navbar-expand-lg navbar-mpit sticky-top p-0">
+    <div class="container-fluid px-3 px-md-4">
+      <span class="navbar-brand text-warning fw-bold d-lg-none py-2" style="font-size: 0.95rem;">
+        <i class="bi bi-list-nested me-1"></i> Navigation Menu
+      </span>
+      <!-- 3-Line Hamburger Button -->
+      <button class="navbar-toggler text-light my-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mpitNavbar" aria-controls="mpitNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-2 text-warning"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mpitNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">
+              <i class="bi bi-house-door-fill me-1"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">
+              <i class="bi bi-info-circle-fill me-1"></i> About Us
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'departments' %}active{% endif %}" href="{% url 'departments' %}">
+              <i class="bi bi-mortarboard-fill me-1"></i> Departments
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'faculty' %}active{% endif %}" href="{% url 'faculty' %}">
+              <i class="bi bi-people-fill me-1"></i> Faculty & Staff
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'facilities' %}active{% endif %}" href="{% url 'facilities' %}">
+              <i class="bi bi-building-check me-1"></i> Facilities
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'notices' %}active{% endif %}" href="{% url 'notices' %}">
+              <i class="bi bi-bell-fill me-1"></i> Notices
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'gallery' %}active{% endif %}" href="{% url 'gallery' %}">
+              <i class="bi bi-images me-1"></i> Gallery
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">
+              <i class="bi bi-envelope-paper-fill me-1"></i> Contact Us
+            </a>
+          </li>
+
+          <!-- Dedicated Portal Access in 3-Line Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-warning fw-bold" href="#" id="portalDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-lock me-1"></i> Portals & Logins
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark-mpit shadow" aria-labelledby="portalDropdown">
+              <li><h6 class="dropdown-header text-warning small text-uppercase">Student Services</h6></li>
+              <li><a class="dropdown-item" href="{% url 'student_login' %}"><i class="bi bi-person-fill me-2 text-info"></i> Student ERP Login</a></li>
+              <li><a class="dropdown-item" href="{% url 'student_register' %}"><i class="bi bi-shield-lock me-2 text-success"></i> Student OTP Activation</a></li>
+              <li><hr class="dropdown-divider border-secondary opacity-25"></li>
+              <li><h6 class="dropdown-header text-warning small text-uppercase">Faculty Services</h6></li>
+              <li><a class="dropdown-item" href="{% url 'teacher_login' %}"><i class="bi bi-card-checklist me-2 text-success"></i> Faculty Attendance Portal</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Right Side Mobile / Desktop Portal Quick Actions -->
+        <div class="d-flex align-items-center gap-2 py-2 py-lg-0">
+          {% if user.is_authenticated %}
+            {% if user.student_profile %}
+              <a href="{% url 'student_dashboard' %}" class="btn btn-sm btn-outline-warning text-warning fw-bold d-flex align-items-center gap-2">
+                {% if user.student_profile.photo %}
+                  <img src="{{ user.student_profile.photo.url }}" class="user-nav-dp" alt="DP">
+                {% endif %}
+                <span>Dashboard</span>
+              </a>
+            {% elif user.teacher_profile %}
+              <a href="{% url 'take_attendance' %}" class="btn btn-sm btn-outline-success text-success fw-bold d-flex align-items-center gap-2">
+                {% if user.teacher_profile.photo %}
+                  <img src="{{ user.teacher_profile.photo.url }}" class="user-nav-dp" alt="DP">
+                {% endif %}
+                <span>Take Attendance</span>
+              </a>
+            {% endif %}
+            <a href="{% url 'logout' %}" class="btn btn-sm btn-danger py-1 px-2.5" title="Sign Out">
+              <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+            </a>
+          {% else %}
+            <a href="{% url 'student_login' %}" class="btn btn-sm btn-primary fw-bold">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Student Sign In
+            </a>
+            <a href="{% url 'teacher_login' %}" class="btn btn-sm btn-outline-light fw-bold">
+              <i class="bi bi-person-workspace me-1"></i> Faculty
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Flash Messages Alert Banner -->
+  {% if messages %}
+    <div class="container-fluid px-3 px-md-4 mt-3">
+      {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% elif message.tags == 'warning' %}warning{% elif message.tags == 'info' %}info{% else %}success{% endif %} alert-dismissible fade show shadow-sm" role="alert">
+          <i class="bi bi-info-circle-fill me-2"></i> {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Main Body Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Anti-Ragging Mandatory Helpline Strip -->
+  <div class="bg-warning text-dark py-3 border-top border-bottom border-dark border-opacity-25 mt-5">
+    <div class="container-fluid px-3 px-md-4">
+      <div class="row align-items-center g-2 text-center text-md-start">
+        <div class="col-12 col-md-8">
+          <div class="fw-bold d-flex align-items-center justify-content-center justify-content-md-start gap-2">
+            <span class="badge bg-danger text-light px-2 py-1"><i class="bi bi-shield-x me-1"></i> ZERO TOLERANCE</span>
+            <span>Ragging is a Punishable Offense | National Anti-Ragging 24x7 Helpline:</span>
+            <a href="tel:{{ config.anti_ragging_helpline }}" class="fw-bolder text-dark text-decoration-underline">{{ config.anti_ragging_helpline }}</a>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 text-center text-md-end">
+          <span class="small fw-semibold text-secondary">Women Helpline: 1090 · Police Emergency: 112</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Institutional Footer (Clean, English, No Download Zip Clutter) -->
+  <footer class="footer-mpit pt-5 pb-3">
+    <div class="container-fluid px-3 px-md-4">
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-lg-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="{% static 'images/college_emblem_logo_1790575124269.jpg' %}" alt="Logo" class="rounded-circle border border-warning" style="width: 48px; height: 48px; object-fit: cover;" onerror="this.src='/static/images/logo.jpg';">
+            <div>
+              <h5 class="mb-0 text-white">{{ config.college_name }}</h5>
+              <div class="text-warning small fw-bold">BTEUP INSTITUTE CODE: {{ config.bteup_code }}</div>
+            </div>
+          </div>
+          <p class="small text-secondary mb-3 leading-relaxed">
+            A premier State Government Technical Diploma Institution approved by the All India Council for Technical Education (AICTE New Delhi) and affiliated with the Board of Technical Education Uttar Pradesh (BTEUP Lucknow).
+          </p>
+          <div class="small text-secondary">
+            <div><i class="bi bi-geo-alt-fill text-danger me-2"></i> {{ config.address }}</div>
+            <div class="mt-1"><i class="bi bi-envelope-fill text-warning me-2"></i> {{ config.email }}</div>
+            <div class="mt-1"><i class="bi bi-telephone-fill text-success me-2"></i> {{ config.phone }}</div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-2">
+          <h5 class="mb-3 text-warning">Quick Links</h5>
+          <ul class="list-unstyled small space-y-2">
+            <li class="mb-2"><a href="{% url 'home' %}"><i class="bi bi-chevron-right text-warning me-1"></i> Home</a></li>
+            <li class="mb-2"><a href="{% url 'about' %}"><i class="bi bi-chevron-right text-warning me-1"></i> About Institute</a></li>
+            <li class="mb-2"><a href="{% url 'departments' %}"><i class="bi bi-chevron-right text-warning me-1"></i> Academic Branches</a></li>
+            <li class="mb-2"><a href="{% url 'faculty' %}"><i class="bi bi-chevron-right text-warning me-1"></i> Faculty Directory</a></li>
+            <li class="mb-2"><a href="{% url 'facilities' %}"><i class="bi bi-chevron-right text-warning me-1"></i> Labs & Facilities</a></li>
+            <li class="mb-2"><a href="{% url 'notices' %}"><i class="bi bi-chevron-right text-warning me-1"></i> Circulars & Notices</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-3">
+          <h5 class="mb-3 text-warning">Portals & Services</h5>
+          <ul class="list-unstyled small space-y-2">
+            <li class="mb-2"><a href="{% url 'student_login' %}"><i class="bi bi-person-fill text-info me-1"></i> Student ERP Login</a></li>
+            <li class="mb-2"><a href="{% url 'student_register' %}"><i class="bi bi-shield-check text-success me-1"></i> Student OTP Activation</a></li>
+            <li class="mb-2"><a href="{% url 'teacher_login' %}"><i class="bi bi-card-checklist text-success me-1"></i> Faculty Attendance Portal</a></li>
+            <li class="mb-2"><a href="https://bteup.ac.in" target="_blank" rel="noreferrer"><i class="bi bi-box-arrow-up-right text-secondary me-1"></i> BTEUP Official Portal</a></li>
+            <li class="mb-2"><a href="https://scholarship.up.gov.in" target="_blank" rel="noreferrer"><i class="bi bi-box-arrow-up-right text-secondary me-1"></i> UP Scholarship Portal</a></li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+          <h5 class="mb-3 text-warning">Diploma Engineering Programs</h5>
+          <div class="p-3 rounded bg-black bg-opacity-25 border border-secondary border-opacity-25 small">
+            <div class="d-flex justify-content-between pb-2 mb-2 border-bottom border-secondary border-opacity-25">
+              <span>Computer Science & Engg. (CSE)</span>
+              <span class="badge bg-warning text-dark fw-bold">60 Seats</span>
+            </div>
+            <div class="d-flex justify-content-between pb-2 mb-2 border-bottom border-secondary border-opacity-25">
+              <span>Electrical Engineering (EE)</span>
+              <span class="badge bg-warning text-dark fw-bold">60 Seats</span>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span>Food Technology (FT)</span>
+              <span class="badge bg-warning text-dark fw-bold">60 Seats</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-secondary opacity-25">
+
+      <div class="row align-items-center small text-secondary">
+        <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+          © 2016 - 2026 {{ config.college_name }}. All Rights Reserved.
+        </div>
+        <div class="col-12 col-md-6 text-center text-md-end">
+          BTEUP Institute Code: {{ config.bteup_code }} · AICTE Approved Government Polytechnic
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

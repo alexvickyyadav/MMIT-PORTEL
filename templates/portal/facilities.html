@@ -1,0 +1,35 @@
+{% extends "portal/base.html" %}
+{% load static %}
+{% block title %}Campus Facilities | {{ config.college_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center max-w-3xl mx-auto mb-5">
+    <span class="badge bg-warning text-dark fw-bold px-3 py-1 mb-2">CAMPUS INFRASTRUCTURE</span>
+    <h2 class="display-6 fw-bolder text-dark">Modern Laboratories & Infrastructure</h2>
+    <p class="text-muted">High-tech computing facilities, electrical power testing workshops and central library</p>
+  </div>
+
+  <div class="row g-4">
+    {% for f in facilities %}
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100 shadow-sm border-0 rounded-4 p-4 text-center bg-white">
+          <div class="p-3 rounded-circle bg-primary bg-opacity-10 text-primary fs-2 mx-auto mb-3" style="width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;">
+            <i class="bi {{ f.icon_name }}"></i>
+          </div>
+          <h5 class="fw-bold text-dark mb-2">{{ f.title }}</h5>
+          <p class="small text-secondary mb-3">{{ f.description }}</p>
+          {% if f.highlights %}
+            <div class="small bg-light p-2 rounded text-start">
+              <strong>Key Highlights:</strong>
+              <div class="text-muted">{{ f.highlights }}</div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12 text-center text-muted">Loading facilities...</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

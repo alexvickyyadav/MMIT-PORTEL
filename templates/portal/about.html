@@ -1,0 +1,69 @@
+{% extends "portal/base.html" %}
+{% load static %}
+{% block title %}About Us | {{ config.college_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center max-w-3xl mx-auto mb-5">
+    <span class="badge bg-warning text-dark fw-bold px-3 py-1 mb-2">INSTITUTIONAL PROFILE</span>
+    <h2 class="display-6 fw-bolder text-dark">{{ config.college_name }}</h2>
+    <p class="text-muted">Established in 2016 (Vikram Samvat {{ config.vikram_samvat }}) · BTEUP Code: {{ config.bteup_code }} · AICTE Approved</p>
+  </div>
+
+  <div class="row g-4 align-items-center mb-5">
+    <div class="col-12 col-lg-6">
+      <img src="{% static 'images/college_campus_main_1790575076151.jpg' %}" alt="Campus" class="w-100 rounded-4 shadow-sm border" style="height: 380px; object-fit: cover;" onerror="this.src='/static/images/campus.jpg';">
+    </div>
+    <div class="col-12 col-lg-6">
+      <h3 class="fw-bold text-dark mb-3">Institutional Background & Heritage</h3>
+      <p class="text-secondary leading-relaxed mb-3">{{ config.about_text }}</p>
+      <div class="p-3 rounded-3 bg-light border mb-3">
+        <div class="fw-bold text-dark mb-1"><i class="bi bi-mortarboard-fill text-primary me-1"></i> BTEUP Affiliation & AICTE Recognition:</div>
+        <div class="small text-secondary">Operating under the Department of Technical Education, Government of Uttar Pradesh, affiliated with the Board of Technical Education Uttar Pradesh (BTEUP Lucknow, Code: <strong>{{ config.bteup_code }}</strong>) and approved by AICTE New Delhi.</div>
+      </div>
+      <div class="row g-2 text-center">
+        <div class="col-4 p-2 rounded bg-primary bg-opacity-10 text-primary fw-bold">3 Branches</div>
+        <div class="col-4 p-2 rounded bg-warning bg-opacity-25 text-dark fw-bold">180 Seats</div>
+        <div class="col-4 p-2 rounded bg-success bg-opacity-10 text-success fw-bold">15+ Modern Labs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vision & Mission -->
+  <div class="row g-4 mb-5">
+    <div class="col-12 col-md-6">
+      <div class="card h-100 border-0 shadow-sm rounded-4 p-4 bg-white border-top border-4 border-primary">
+        <h4 class="fw-bold text-primary mb-2"><i class="bi bi-eye-fill me-2"></i> Our Vision</h4>
+        <p class="text-secondary mb-0 leading-relaxed">{{ config.vision }}</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="card h-100 border-0 shadow-sm rounded-4 p-4 bg-white border-top border-4 border-warning">
+        <h4 class="fw-bold text-dark mb-2"><i class="bi bi-bullseye text-warning me-2"></i> Our Mission</h4>
+        <p class="text-secondary mb-0 leading-relaxed">{{ config.mission }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Principal's Detailed Desk -->
+  <div class="p-4 p-md-5 rounded-4 shadow-sm text-white" style="background: linear-gradient(135deg, #0a142f 0%, #1e3a8a 100%);">
+    <div class="row align-items-center g-4">
+      <div class="col-12 col-md-3 text-center">
+        <img src="{% if config.principal_photo %}{{ config.principal_photo.url }}{% else %}{% static 'images/principal_portrait_1790652864523.jpg' %}{% endif %}" alt="Principal" class="rounded-circle border border-4 border-warning shadow mb-2" style="width: 140px; height: 140px; object-fit: cover;" onerror="this.src='/static/images/logo.jpg';">
+        <h5 class="fw-bold text-white mb-0">{{ config.principal_name }}</h5>
+        <div class="text-warning small">{{ config.principal_designation }}</div>
+        <div class="text-light text-opacity-75 small" style="font-size: 0.8rem;">{{ config.principal_qualification }}</div>
+      </div>
+      <div class="col-12 col-md-9">
+        <h4 class="fw-bold text-warning mb-2">Message From the Principal</h4>
+        <blockquote class="text-light text-opacity-90 leading-relaxed mb-3" style="line-height: 1.8;">
+          "{{ config.principal_message }}"
+        </blockquote>
+        <div class="small text-light text-opacity-75">
+          <i class="bi bi-geo-alt-fill text-danger me-1"></i> Sirsiya Road, Bhinga, Shravasti (U.P.) | Phone: {{ config.phone }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "portal/base.html" %}
+{% block title %}Student OTP Registration | {{ config.college_short_name|default:"MMIT Shravasti" }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow border-0 rounded-4 overflow-hidden">
+        <div class="p-4 text-white text-center" style="background: linear-gradient(135deg, #0a142f 0%, #1e3a8a 100%);">
+          <div class="badge bg-warning text-dark fw-bold px-3 py-1 mb-2">ACCOUNT ACTIVATION</div>
+          <h4 class="fw-bolder mb-1">Student OTP Registration</h4>
+          <p class="small text-light text-opacity-75 mb-0">Verify your BTEUP records and set up your portal account</p>
+        </div>
+
+        <div class="bg-light p-3 border-bottom d-flex justify-content-around text-center small fw-bold">
+          <span class="{% if step == 1 %}text-primary border-bottom border-2 border-primary pb-1{% else %}text-muted{% endif %}">
+            1. Verify ID
+          </span>
+          <span class="{% if step == 2 %}text-warning border-bottom border-2 border-warning pb-1{% else %}text-muted{% endif %}">
+            2. Mobile OTP
+          </span>
+          <span class="{% if step == 3 %}text-success border-bottom border-2 border-success pb-1{% else %}text-muted{% endif %}">
+            3. Set Password
+          </span>
+        </div>
+
+        <div class="card-body p-4">
+          {% if step == 1 %}
+            <form method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="verify_code">
+
+              <div class="mb-3">
+                <label class="form-label fw-bold small text-dark">BTEUP Enrollment Number:</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                  <input type="text" name="enrollment_number" class="form-control" placeholder="e.g. E25271835500047" value="E25271835500047" required autofocus style="text-transform: uppercase;">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold small text-dark">Institute Verification Code:</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                  <input type="text" name="verification_code" class="form-control" placeholder="e.g. MMIT-CSE-0047" value="MMIT-CSE-0047" required style="text-transform: uppercase;">
+                </div>
+              </div>
+
+              <div class="p-3 mb-4 rounded-3 bg-light border small">
+                <div class="fw-bold text-dark mb-1"><i class="bi bi-info-circle text-primary me-1"></i> Pre-Verified Credentials for Instant Test:</div>
+                <div>Enrollment: <code class="fw-bold">E25271835500047</code></div>
+                <div>Verification Code: <code class="fw-bold">MMIT-CSE-0047</code> or <code class="fw-bold">MPIT-CSE-0047</code></div>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 py-2.5 fw-bold shadow-sm">
+                Verify Record & Send OTP &rarr;
+              </button>
+            </form>
+
+          {% elif step == 2 %}
+            <div class="alert alert-info shadow-sm mb-4">
+              <h6 class="fw-bold mb-1"><i class="bi bi-shield-check text-primary me-1"></i> OTP Sent to Registered Mobile</h6>
+              <p class="small mb-2">Student: <strong>{{ student_name }}</strong> ({{ student_dept }}, Sem-{{ student_sem }})</p>
+
+              <div class="p-3 rounded bg-white border border-primary small shadow-2xs">
+                <div class="text-primary fw-bold mb-1 d-flex justify-content-between align-items-center">
+                  <span><i class="bi bi-phone text-success me-1"></i> Real-time SMS Simulator:</span>
+                  <span class="badge bg-success">SIMULATION ACTIVE</span>
+                </div>
+                <div class="mt-2">Your 6-digit one-time password (OTP) is:</div>
+                <div class="d-flex align-items-center gap-2 mt-1">
+                  <span id="otpCode" class="badge bg-danger fs-5 tracking-widest px-3 py-1.5">{{ otp_display }}</span>
+                  <button type="button" onclick="document.getElementById('otpInput').value='{{ otp_display }}';" class="btn btn-sm btn-outline-primary py-1 px-2 fw-semibold">
+                    <i class="bi bi-clipboard-check"></i> Fill OTP
+                  </button>
+                </div>
+                <div class="text-muted mt-2" style="font-size: 11px;">(Universal backup test code: <code>123456</code> is also accepted)</div>
+              </div>
+            </div>
+
+            <form method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="verify_otp">
+
+              <div class="mb-3 text-center">
+                <label class="form-label fw-bold text-dark">Enter 6-Digit Verification OTP:</label>
+                <input type="text" id="otpInput" name="otp" class="form-control form-control-lg text-center fw-bold fs-4 tracking-widest" maxlength="6" placeholder="• • • • • •" required autofocus>
+              </div>
+
+              <button type="submit" class="btn btn-warning w-100 py-2.5 fw-bold text-dark shadow-sm mb-2">
+                Verify OTP &rarr;
+              </button>
+            </form>
+
+            <form method="POST" class="text-center mt-2">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="reset_step">
+              <button type="submit" class="btn btn-link text-muted btn-sm text-decoration-none">&larr; Back to Step 1</button>
+            </form>
+
+          {% elif step == 3 %}
+            <div class="alert alert-success shadow-sm mb-4">
+              <i class="bi bi-check-circle-fill me-1"></i> Mobile number verified successfully! Create your new secure student password below.
+            </div>
+
+            <form method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="set_password">
+
+              <div class="mb-3">
+                <label class="form-label fw-bold small text-dark">Create Portal Password:</label>
+                <input type="password" name="password" class="form-control" placeholder="e.g. student123" required autofocus>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label fw-bold small text-dark">Confirm Password:</label>
+                <input type="password" name="password_confirm" class="form-control" placeholder="Re-enter password" required>
+              </div>
+
+              <button type="submit" class="btn btn-success w-100 py-2.5 fw-bold shadow-sm">
+                Activate Account & Enter Dashboard &rarr;
+              </button>
+            </form>
+          {% endif %}
+        </div>
+
+        <div class="card-footer bg-light p-3 text-center small text-muted">
+          Already registered? <a href="{% url 'student_login' %}" class="fw-bold text-primary">Sign in here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

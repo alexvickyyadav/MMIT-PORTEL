@@ -1,0 +1,54 @@
+{% extends "portal/base.html" %}
+{% load static %}
+{% block title %}Faculty & Staff | {{ config.college_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center max-w-3xl mx-auto mb-4">
+    <span class="badge bg-success text-light fw-bold px-3 py-1 mb-2">FACULTY DIRECTORY</span>
+    <h2 class="display-6 fw-bolder text-dark">Faculty & Technical Staff</h2>
+    <p class="text-muted">Highly qualified professors, lecturers and workshop instructors</p>
+  </div>
+
+  <div class="card shadow-sm border-0 rounded-4 p-3 mb-4 bg-white">
+    <form method="GET" class="row g-2 align-items-center">
+      <div class="col-12 col-md-5">
+        <input type="text" name="q" class="form-control" placeholder="Search by name, qualification or role..." value="{{ search }}">
+      </div>
+      <div class="col-12 col-md-4">
+        <select name="dept" class="form-select">
+          <option value="ALL">All Departments</option>
+          {% for d in departments %}
+            <option value="{{ d.code }}" {% if selected_dept == d.code %}selected{% endif %}>{{ d.name }} ({{ d.code }})</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-12 col-md-3">
+        <button type="submit" class="btn btn-primary w-100 fw-bold"><i class="bi bi-search me-1"></i> Search Faculty</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="row g-4">
+    {% for f in faculty %}
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 shadow-sm border-0 rounded-4 p-4 text-center bg-white">
+          <div class="position-relative d-inline-block mx-auto mb-3">
+            <img src="{% if f.photo %}{{ f.photo.url }}{% else %}{% static 'images/college_emblem_logo_1790575124269.jpg' %}{% endif %}" alt="{{ f.name }}" class="rounded-circle border border-3 border-warning shadow-sm" style="width: 90px; height: 90px; object-fit: cover;" onerror="this.src='/static/images/logo.jpg';">
+          </div>
+          <h5 class="fw-bold text-dark mb-1">{{ f.name }}</h5>
+          <span class="badge bg-primary text-light mb-2">{{ f.designation }}</span>
+          <div class="text-muted small fw-semibold mb-2">{{ f.department.name }}</div>
+          <div class="small text-secondary mb-3">{{ f.qualification }} · {{ f.experience_years }} Years Experience</div>
+          <div class="mt-auto pt-2 border-top small text-muted">
+            <div><i class="bi bi-envelope-fill text-warning me-1"></i> {{ f.email }}</div>
+            <div class="mt-1"><i class="bi bi-telephone-fill text-success me-1"></i> {{ f.mobile }}</div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12 text-center py-5 text-muted">No faculty members matched your criteria.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
